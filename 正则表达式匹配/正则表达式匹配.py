@@ -45,32 +45,47 @@
 #
 #
 
+import functools
+
 class Solution:
+
+    def j_twenty(self, s: str, p: str) -> bool:
+        if not p:
+            return not s
+
+        is_match = s and (p[0] == "." or s[0] == p[0])
+        if len(p) > 1 and p[1] == "*":
+            return self.j_twenty(s, p[2:]) or (is_match and self.j_twenty(s[1:], p))
+
+        return is_match and self.j_twenty(s[1:], p[1:])
+
+    @functools.lru_cache()
     def isMatch(self, s: str, p: str) -> bool:
         if not p:
             return not s
         head_match = bool(s) and (p[0] == '.' or s[0] == p[0])
         if len(p) > 1 and p[1] == '*':
-            return self.isMatch(s, p[2: ]) or (head_match and self.isMatch(s[1:], p))
+            return self.isMatch(s, p[2:]) or (head_match and self.isMatch(s[1:], p))
         else:
-            return head_match and self.isMatch(s[1: ], p[1: ])
+            return head_match and self.isMatch(s[1:], p[1:])
 
     def solution(self, s: str, p: str) -> bool:
         cache = {}
+
         def dp(i, j):
             if (i, j) not in cache:
                 if j == len(p):
                     res = i == len(s)
                 else:
                     head_match = i != len(s) and (s[i] == p[j] or p[j] == '.')
-                    if len(p) - j > 1 and p[j+1] == '*':
-                        res = dp(i, j+2) or (head_match and dp(i+1, j))
+                    if len(p) - j > 1 and p[j + 1] == '*':
+                        res = dp(i, j + 2) or (head_match and dp(i + 1, j))
                     else:
-                        res = head_match and dp(i+1, j+1)
+                        res = head_match and dp(i + 1, j + 1)
                 cache[(i, j)] = res
             return cache[(i, j)]
-        return dp(0, 0)
 
+        return dp(0, 0)
 
 
 print(Solution().isMatch('aa', 'a'))
