@@ -5,22 +5,21 @@ class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if not strs:
             return ""
-        if len(strs) == 1:
-            return strs[0]
 
-        prefix = strs[0]
+        n = len(strs[0])
+        if not n:
+            return ""
 
-        for word in strs[1:]:
+        for substr in strs[1:]:
+            str_len = len(substr)
+            n = min(str_len, n)
             idx = 0
-            n = min(len(prefix), len(word))
             while idx < n:
-                if prefix[idx] != word[idx]:
+                if substr[idx] != strs[0][idx]:
+                    n = idx
                     break
                 idx += 1
-
-            prefix = prefix[:idx]
-
-        return prefix
+        return n
 
 
-print(Solution().longestCommonPrefix(["dog","racecar","car"]))
+print(Solution().longestCommonPrefix(["dog", "racecar", "car"]))
