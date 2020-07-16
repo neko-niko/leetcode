@@ -5,6 +5,7 @@ from collections import Counter
 class Solution:
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
         return self.intersect_sort(nums1, nums2)
+
         small_list, big_list = nums1, nums2
         if len(small_list) > len(big_list):
             small_list, big_list = big_list, small_list
