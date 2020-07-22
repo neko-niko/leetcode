@@ -2,6 +2,7 @@
 
 from typing import *
 
+
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
 
@@ -10,7 +11,8 @@ class Solution:
                 result.append(nums2)
             else:
                 for i in range(len(nums)):
-                    solution(result, nums[: i] + nums[i + 1: ], nums2 + [nums[i]])
+                    solution(result, nums[: i] + nums[i + 1:], nums2 + [nums[i]])
+
         result = []
         solution(result, nums, [])
         return result
@@ -21,12 +23,15 @@ class Solution:
             if start == len(nums):
                 result.append(list(nums))
             for i in range(start, len(nums)):
-                if i == start:
-                    solution(result, nums, start+1)
-                else:
-                    nums[i], nums[start] = nums[start], nums[i]
-                    solution(result, nums, start+1)
-                    nums[i], nums[start] = nums[start], nums[i]
+                print(start, i)
+
+                nums[i], nums[start] = nums[start], nums[i]
+                solution(result, nums, start + 1)
+                nums[i], nums[start] = nums[start], nums[i]
+
         result = []
         solution(result, nums, 0)
         return result
+
+
+print(Solution().permute2(list(range(2))))
