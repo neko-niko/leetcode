@@ -41,10 +41,6 @@ class Solution:
 class Solution2(object):
     def Managcher(self, s: str):
         ptr = max_len = id = mx = 0
-        # 从开始到现在使用“中心扩散法”能得到的“最长回文子串”的中心的位置；
-        # 从开始到现在使用“中心扩散法”能得到的“最长回文子串”能延伸到的最右端的位置。容易知道
-        # mx = id + p[id]。
-
 
         lst = []
         lst.append('$')
