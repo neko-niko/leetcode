@@ -18,3 +18,30 @@ class Solution:
                 return True
 
         return False
+
+    def isSubSequence_dp(self, s: str, t: str) -> bool:
+        from collections import defaultdict
+        t_len = len(t)
+
+        dp = [defaultdict(lambda: t_len+1) for _ in range(t_len+1)]
+        char_list = list(map(chr, [ord('a') + i for i in range(26)]))
+
+        for c in char_list:
+            for i in reversed(range(t_len)):
+                if t[i] == c:
+                    dp[i][c] = i
+                else:
+                    dp[i][c] = dp[i + 1][c]
+
+        # print(dp)
+
+        pos = 0
+        for c in s:
+            if dp[pos][c] == t_len + 1:
+                return False
+            else:
+                pos = dp[pos][c] + 1
+        return True
+
+print(Solution().isSubSequence_dp("aaaaaa",
+"bbaaaa"))
