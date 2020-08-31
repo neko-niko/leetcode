@@ -1,5 +1,6 @@
 from typing import List
 
+
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
         next_arr = self.get_next_arr(s)
@@ -20,13 +21,11 @@ class Solution:
                 return True
         return False
 
-
     def get_next_arr(self, s: str) -> List[int]:
         len_s = len(s)
 
         if len_s == 0:
             return []
-
 
         ptr = 0
         res = [-1]
