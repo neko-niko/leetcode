@@ -29,7 +29,7 @@ class Solution:
         else:
             for i in range(size):
                 lst.append(i)
-                if self.judge_core(lst, now) == True:
+                if self.judge_core(lst, now):
                     self.recursive_core(lst, size, now+1, result)
                 lst.pop()
 
