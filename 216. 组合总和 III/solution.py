@@ -2,6 +2,24 @@ from typing import List
 
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        res = []
+        def deep(target, cur, lst: list):
+            if target == 0 and len(lst) == k:
+                res.append(lst)
+                return
+            lst_len = len(lst)
+
+            if 10-cur < k - lst_len or target < 0 or cur >= 10:
+                return
+
+            deep(target-cur, cur + 1, lst+[cur])
+            deep(target, cur + 1, lst)
+
+        deep(n, 1, [])
+
+        return res
+
+    def combinationSum3_deep(self, k: int, n: int) -> List[List[int]]:
         candidate_set = set(range(1, 10))
         res = []
 
